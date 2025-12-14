@@ -1,0 +1,11 @@
+python test.py \
+    --pretrained_model_name_or_path sd3.5_medium \
+    --data_root demo \
+    --json_file demo/index.jsonl \
+    --pretrained_mmdit pretrained_models/mmdit/model.safetensors \
+    --lora_ckpt /share/zhangyudong6-local/mmdit_code/loveda/v2 \
+    --vectors_path vectors/loveda/train \
+    --batch_size 1 \
+    --debug 1 \
+    --skip 20 \
+    --num_cls 6
