@@ -13,3 +13,4 @@ torchmetrics
 torch-fidelity
 sentencepiece
 protobuf
+peft

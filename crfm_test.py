@@ -9,10 +9,11 @@ from diffusers.image_processor import VaeImageProcessor
 from accelerate import Accelerator
 from accelerate.logging import get_logger
 from safetensors.torch import load_file
+from mmseg.apis import init_model
 
 from src.models.sd3_mmdit import MaskDit_sd3_5
-from src.utils.utils import  encode_images
-from src.utils.inference import batch_imgage_generation
+from src.utils.utils import encode_images
+from src.utils.crfm import inference_with_crfm
 from src.datasets.infer_dataset import SegmentationDataset, collate_fn
 
 import torch
@@ -45,7 +46,10 @@ def parse_args(input_args=None):
     parser.add_argument("--num_cls", type=int, default=100)
     parser.add_argument("--skip", type=int, default=0)
     parser.add_argument("--datameta", type=str, default=None,)
+    parser.add_argument("--mmseg_config",type=str,default='')
+    parser.add_argument("--mmseg_ckpt",type=str,default='')
     parser.add_argument("--num_inference_steps", type=int, default=28)
+    parser.add_argument("--rectified_step", type=int, default=4)
 
     args = parser.parse_args()
     env_local_rank = int(os.environ.get("LOCAL_RANK", -1))
@@ -94,7 +98,7 @@ def main(args):
     )
     transformer = MaskDit_sd3_5(sd3_transformer=transformer).to(accelerator.device, dtype=weight_dtype)
 
-    # Load MM-DiT checkpoint
+    # Load MMDiT checkpoint
     model_state_dict = load_file(args.updated_mmdit)
     transformer.load_state_dict(
         model_state_dict, strict=False
@@ -107,9 +111,12 @@ def main(args):
     ).to(accelerator.device, dtype=weight_dtype)
     vae_scale_factor = 2 ** (len(vae.config.block_out_channels) - 1)
     image_processor = VaeImageProcessor(vae_scale_factor=vae_scale_factor)
+    control_model = init_model(args.mmseg_config, checkpoint=args.mmseg_ckpt).to(accelerator.device, dtype=weight_dtype)
 
     transformer.requires_grad_(False)
     vae.requires_grad_(False)
+    control_model.requires_grad_(False)
+    control_model.eval()
 
     val_dataset = SegmentationDataset(
         data_root=args.data_root,
@@ -133,7 +140,7 @@ def main(args):
     )
 
     num_inference_steps = args.num_inference_steps
-    resolution = args.resolution
+    rectified_step = args.rectified_step
 
     for idx, batch in enumerate(val_dataloader):
         if idx < args.skip:
@@ -156,17 +163,22 @@ def main(args):
                 condition_dict["cond_types"].append(cdtn_type)
                 condition_dict["cond_latents"].append(img_per_cdtn)
             
-            result_img_list = batch_imgage_generation(
+            result_img_list = inference_with_crfm(
                 transformer=transformer,
                 vae=vae,
                 scheduler=noise_scheduler,
                 image_processor=image_processor,
+                conditional_model=control_model,
+                condition_targets=batch['control_condtions'].to(accelerator.device),
                 prompt_embeds=prompt_embeds,
                 pooled_prompt_embeds=pooled_prompt_embeds,
                 num_inference_steps=num_inference_steps,
                 condition_dict=condition_dict,
-                width=resolution,
-                height=resolution,
+                width=args.resolution,
+                height=args.resolution,
+                max_step_size=0.1,
+                rectified_step=rectified_step,
+                ignore_index=255,
             ).images
 
             if args.debug:

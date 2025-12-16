@@ -35,7 +35,7 @@ pip3 install "mmsegmentation>=1.0.0"
 pip install xformers
 ```
 
-### Optional(if mmengine throws an error)
+### Optional (if mmengine throws an error)
 Then modify the loading logic of the `load_from_local` function located in `mmengine/runner/checkpoint.py` as:
 ```python
 def load_from_local(filename, map_location):
@@ -95,14 +95,28 @@ You need to organize your dataset in the following format:
   sh test.sh
 ```
 
-Some important arguments for configurations of the training are:
+Some important arguments for configurations of inference are:
 - `--pretrained_model_name_or_path`: The pre-trained MM-DiT model used in the paper is SD-3.5.
 - `--data_root`: The path to dataset.
 - `--json_file`: The index file is used to organize the dataset. The template reference is `demo/index.jsonl`
 - `--lora_ckpt`: The path where the trained checkpoint is saved.
 - `--vectors_path`: The saved path for the vectorized prompts.
-- `debug`: Debug mode is used to view the generation results of the model.
-- `num_cls`: The number of categories in the dataset.
+- `--debug`: Debug mode is used to view the generation results of the model.
+- `--num_cls`: The number of categories in the dataset.
+- `--num_inference_steps`: The number of steps the flow model progresses from $z_1$ to $z_0$.
+
+## CRFM inference
+
+The **CRFM** method relies on a pre-trained segmentation model. Please train the segmentation model on the training set to be generated (The segmentation model in this paper is implemented using the `MMSegmentation` lib).
+
+```bash
+  sh crfm_test.sh
+```
+
+Some parameters specifically set for the CRFM process:
+- `--mmseg_config`: The `.py` configuration file of the mmsegmentation model.
+- `--mmseg_ckpt`: The `.pth` checkpoint file of the mmsegmentation model.
+- `--rectified_step`: The number of steps rectified by the **CRFM** method.
 
 ## Model training
 
@@ -110,10 +124,11 @@ Some important arguments for configurations of the training are:
   sh train.sh
 ```
 
-Some important arguments for configurations of the training are:
+Some important arguments for configurations of training are:
 - `--pretrained_model_name_or_path`: The pre-trained MM-DiT model used in the paper is SD-3.5.
 - `--data_root`: The path to dataset.
 - `--work_dir`: The path for saving checkpoints during training.
 - `--train_file`: The index file is used to organize the dataset. The template reference is `demo/index.jsonl`
 - `--vectors_path`: The saved path for the vectorized prompts.
-- `num_cls`: The number of categories in the dataset.
+- `--num_cls`: The number of categories in the dataset.
+- `--num_inference_steps`: The number of steps the flow model progresses from $z_1$ to $z_0$.

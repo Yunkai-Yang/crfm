@@ -1,4 +1,4 @@
-python test.py \
+python crfm_test.py \
     --pretrained_model_name_or_path sd3.5_medium \
     --data_root demo \
     --json_file demo/index_.jsonl \
@@ -7,4 +7,7 @@ python test.py \
     --batch_size 1 \
     --debug 1 \
     --num_cls 18 \
-    --num_inference_steps 28
+    --mmseg_config xx \
+    --mmseg_ckpt xx \
+    --num_inference_steps 23 \
+    --rectified_step 4
