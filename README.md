@@ -32,9 +32,10 @@ pip3 install -U openmim
 mim install mmengine
 mim install "mmcv==2.1.0" 
 pip3 install "mmsegmentation>=1.0.0"
+pip install xformers
 ```
 
-### Optional
+### Optional(if mmengine throws an error)
 Then modify the loading logic of the `load_from_local` function located in `mmengine/runner/checkpoint.py` as:
 ```python
 def load_from_local(filename, map_location):
