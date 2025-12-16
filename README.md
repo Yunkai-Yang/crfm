@@ -11,7 +11,7 @@
 <br>
 
 <p align="center">
-  <img src="assets/visulization.jpg" width="90%" height="90%">
+  <img src="assets/visulization.jpg" width="100%" height="100%">
 </p>
 
 ## Overview
