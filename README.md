@@ -8,7 +8,7 @@
 
 > **Control Rectified Flow Matching(CRFM)**
 > `<br>`
-> Yunkai Yang, [Yudong Zhang](https://yudongzhang.com/), Kunquan Zhang, Jinxiao Zhang, Xinying Chen, Haohuan Fu, [Runmin Dong$^*$](https://dongrunmin.github.io)
+> Yunkai Yang, [Yudong Zhang](https://yudongzhang.com/), Kunquan Zhang, Jinxiao Zhang, Xinying Chen, Haohuan Fu, [Runmin Dong](https://dongrunmin.github.io)$^*$
 > `<br>`
 > Sun Yat-sen University & Tsinghua University
 
