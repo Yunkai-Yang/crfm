@@ -132,3 +132,18 @@ Some important arguments for configurations of training are:
 - `--vectors_path`: The saved path for the vectorized prompts.
 - `--num_cls`: The number of categories in the dataset.
 - `--num_inference_steps`: The number of steps the flow model progresses from $z_1$ to $z_0$.
+
+## Citation
+
+If you find CRFM useful for your research, welcome to 🌟 this repo and cite our work using the following BibTeX:
+
+```bibtex
+@article{yang2025crfm,
+      title={Task-Oriented Data Synthesis and Control-Rectify Sampling for Remote Sensing Semantic Segmentation}, 
+      author={Yunkai Yang and Yudong Zhang and Kunquan Zhang and Jinxiao Zhang and Xinying Chen and Haohuan Fu and Runmin Dong},
+      year={2025},
+      eprint={2512.16740},
+      archivePrefix={arXiv},
+      url={https://arxiv.org/abs/2512.16740}, 
+}
+```
