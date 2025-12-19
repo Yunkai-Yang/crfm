@@ -1,17 +1,17 @@
-# Control Rectified Flow Matching(CRFM)
+# Task-Oriented Data Synthesis and Control-Rectify Sampling for Remote Sensing Semantic Segmentation
 
 <br>
 
-> **Task-Oriented Data Synthesis and Control-Rectify Sampling for Remote Sensing Semantic Segmentation**
+> **Control Rectified Flow Matching(CRFM)**
 > `<br>`
-> Yunkai Yang, [Yudong Zhang](https://yudongzhang.com/), Kunquan Zhang, Jinxiao Zhang, Xinying Chen, Haohuan Fu, [Runmin Dong](https://dongrunmin.github.io)
+> Yunkai Yang, [Yudong Zhang](https://yudongzhang.com/), Kunquan Zhang, Jinxiao Zhang, Xinying Chen, Haohuan Fu, [Runmin Dong](https://dongrunmin.github.io)$^*$
 > `<br>`
 > Sun Yat-sen University & Tsinghua University
 
 <br>
 
 <p align="center">
-  <img src="assets/visulization.jpg" width="100%" height="100%">
+  <img src="assets/visulization.jpg" width="90%" height="90%">
 </p>
 
 ## Overview
