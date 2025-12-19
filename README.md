@@ -105,7 +105,7 @@ Some important arguments for configurations of inference are:
 - `--num_cls`: The number of categories in the dataset.
 - `--num_inference_steps`: The number of steps the flow model progresses from $z_1$ to $z_0$.
 
-## CRFM inference
+## Inference with CRFM
 
 The **CRFM** method relies on a pre-trained segmentation model. Please train the segmentation model on the training set to be generated (The segmentation model in this paper is implemented using the `MMSegmentation` lib).
 
