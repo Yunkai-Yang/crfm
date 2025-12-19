@@ -1,5 +1,9 @@
 # Task-Oriented Data Synthesis and Control-Rectify Sampling for Remote Sensing Semantic Segmentation
 
+<div >
+  <a href='https://arxiv.org/abs/2512.16740'><img src='https://img.shields.io/badge/arxiv-2512.16740-red'></a>
+</div>
+
 <br>
 
 > **Control Rectified Flow Matching(CRFM)**
