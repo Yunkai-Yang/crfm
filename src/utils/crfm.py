@@ -61,7 +61,7 @@ def control_rf_matching(
         if is_synth:
             vector_field_preds *= (1 - step_size)
 
-        vector_field_preds += (step_size * cond_grad)
+        vector_field_preds -= (step_size * cond_grad)
         vector_field_preds.clamp_(-1, 1)
     
     vector_field_preds.grad.zero_()
